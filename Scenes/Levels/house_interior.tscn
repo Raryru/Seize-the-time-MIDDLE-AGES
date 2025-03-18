@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://6tsqvp7hhlb5"]
+
+[ext_resource type="Texture2D" uid="uid://bqss7k8su8wck" path="res://Sprites/HUDandFE/Buttons/Ebuttn.png" id="2_3fo40"]
+[ext_resource type="Script" path="res://Scripts/Main_Scene/door_exit.gd" id="2_dfpkp"]
+[ext_resource type="PackedScene" uid="uid://tygi8eu7mg3q" path="res://Scenes/Characters_Scenes/Player_Scene/player.tscn" id="3_ph1qn"]
+[ext_resource type="PackedScene" uid="uid://0up4475u84j7" path="res://Scenes/Camera/Player_Camera.tscn" id="4_wejl1"]
+[ext_resource type="PackedScene" uid="uid://d01to08v1ksn8" path="res://Scenes/UI_Scenes/time_bar.tscn" id="5_jc0bn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1ywp"]
+
+[node name="HouseInterior" type="Node2D"]
+
+[node name="DoorExit" type="Area2D" parent="."]
+script = ExtResource("2_dfpkp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorExit"]
+position = Vector2(56, 64)
+shape = SubResource("RectangleShape2D_x1ywp")
+
+[node name="InteractionHint" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EButton" type="TextureRect" parent="InteractionHint"]
+layout_mode = 0
+offset_left = -16.625
+offset_top = 121.0
+offset_right = 3.375
+offset_bottom = 141.0
+texture = ExtResource("2_3fo40")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_ph1qn")]
+
+[node name="Player_Camera" parent="." instance=ExtResource("4_wejl1")]
+
+[node name="TimeBar" parent="." instance=ExtResource("5_jc0bn")]
+offset_left = -72.0
+offset_top = 152.0
+offset_right = -32.0
+offset_bottom = 192.0
+
+[connection signal="body_entered" from="DoorExit" to="DoorExit" method="_on_door_exit_body_entered"]
+[connection signal="body_exited" from="DoorExit" to="DoorExit" method="_on_door_exit_body_exited"]

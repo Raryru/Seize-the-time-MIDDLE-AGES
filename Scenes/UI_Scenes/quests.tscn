@@ -1,0 +1,133 @@
+[gd_scene load_steps=15 format=3 uid="uid://cihbmw2tduxl6"]
+
+[ext_resource type="Texture2D" uid="uid://54gsp65h546m" path="res://Sprites/HUDandFE/Buttons/questanim/questtab0.png" id="1_uduqx"]
+[ext_resource type="Script" path="res://Scenes/UI_Scenes/quests.gd" id="1_vgbsb"]
+[ext_resource type="Texture2D" uid="uid://bo4pwpjs56pxt" path="res://Sprites/HUDandFE/Buttons/questanim/questtab1.png" id="2_doe5t"]
+[ext_resource type="Texture2D" uid="uid://cbfsnggfl1ca1" path="res://Sprites/HUDandFE/Buttons/questanim/questtab2.png" id="3_q3lco"]
+[ext_resource type="Texture2D" uid="uid://ilf83t0q751" path="res://Sprites/HUDandFE/Buttons/questanim/questtab3.png" id="4_tkidq"]
+[ext_resource type="Texture2D" uid="uid://pk1ey7br83qv" path="res://Sprites/HUDandFE/Buttons/questanim/questtab4.png" id="5_3ili6"]
+[ext_resource type="Texture2D" uid="uid://c43blrqn1g2s1" path="res://Sprites/HUDandFE/Buttons/questanim/questtab5.png" id="6_cw2fq"]
+[ext_resource type="Texture2D" uid="uid://crjiklxi824s7" path="res://Sprites/HUDandFE/Buttons/questanim/questtab6.png" id="7_khhjw"]
+[ext_resource type="Texture2D" uid="uid://b3mmjk76q0tdd" path="res://Sprites/HUDandFE/Buttons/questanim/questtab7.png" id="8_s2bks"]
+[ext_resource type="Texture2D" uid="uid://cubo16k5tw0ck" path="res://Sprites/HUDandFE/Buttons/questanim/questtab8.png" id="9_ucstc"]
+[ext_resource type="Texture2D" uid="uid://bw4wla6ptpdr" path="res://Sprites/HUDandFE/Buttons/questanim/questtab9.png" id="10_p5yhy"]
+[ext_resource type="Texture2D" uid="uid://cimjodw1nod08" path="res://Sprites/HUDandFE/Buttons/questanim/questtab10.png" id="11_tnj1d"]
+[ext_resource type="Texture2D" uid="uid://iyfy73wib33q" path="res://Sprites/HUDandFE/Buttons/questanim/questtab11.png" id="12_oabvc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6xjn"]
+animations = [{
+"frames": [{
+"duration": 0.45,
+"texture": ExtResource("12_oabvc")
+}, {
+"duration": 0.45,
+"texture": ExtResource("11_tnj1d")
+}, {
+"duration": 0.45,
+"texture": ExtResource("10_p5yhy")
+}, {
+"duration": 0.45,
+"texture": ExtResource("9_ucstc")
+}, {
+"duration": 0.45,
+"texture": ExtResource("8_s2bks")
+}, {
+"duration": 0.45,
+"texture": ExtResource("7_khhjw")
+}, {
+"duration": 0.45,
+"texture": ExtResource("6_cw2fq")
+}, {
+"duration": 0.45,
+"texture": ExtResource("5_3ili6")
+}, {
+"duration": 0.45,
+"texture": ExtResource("4_tkidq")
+}, {
+"duration": 0.45,
+"texture": ExtResource("3_q3lco")
+}, {
+"duration": 0.45,
+"texture": ExtResource("2_doe5t")
+}, {
+"duration": 0.45,
+"texture": ExtResource("1_uduqx")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.45,
+"texture": ExtResource("1_uduqx")
+}],
+"loop": true,
+"name": &"default_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_oabvc")
+}],
+"loop": true,
+"name": &"default_opened",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.45,
+"texture": ExtResource("1_uduqx")
+}, {
+"duration": 0.45,
+"texture": ExtResource("2_doe5t")
+}, {
+"duration": 0.45,
+"texture": ExtResource("3_q3lco")
+}, {
+"duration": 0.45,
+"texture": ExtResource("4_tkidq")
+}, {
+"duration": 0.45,
+"texture": ExtResource("5_3ili6")
+}, {
+"duration": 0.45,
+"texture": ExtResource("6_cw2fq")
+}, {
+"duration": 0.45,
+"texture": ExtResource("7_khhjw")
+}, {
+"duration": 0.45,
+"texture": ExtResource("8_s2bks")
+}, {
+"duration": 0.45,
+"texture": ExtResource("9_ucstc")
+}, {
+"duration": 0.45,
+"texture": ExtResource("10_p5yhy")
+}, {
+"duration": 0.45,
+"texture": ExtResource("11_tnj1d")
+}, {
+"duration": 0.45,
+"texture": ExtResource("12_oabvc")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
+}]
+
+[node name="Quests" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_vgbsb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(64, 0)
+sprite_frames = SubResource("SpriteFrames_o6xjn")
+animation = &"default_closed"
+
+[node name="Button" type="Button" parent="."]
+offset_top = -48.0
+offset_right = 16.0
+offset_bottom = 48.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

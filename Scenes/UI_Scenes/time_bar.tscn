@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://d01to08v1ksn8"]
+
+[ext_resource type="Texture2D" uid="uid://cd24qwx2h8gmv" path="res://Sprites/HUDandFE/TimeBar/TimeUnder.png" id="2_3co4m"]
+[ext_resource type="Texture2D" uid="uid://b72s3cc8j656u" path="res://Sprites/HUDandFE/TimeBar/TimeOver.png" id="3_pwd8p"]
+[ext_resource type="Texture2D" uid="uid://bq3046x74bomi" path="res://Sprites/HUDandFE/TimeBar/TimeProgress.png" id="4_nvbfx"]
+[ext_resource type="Script" path="res://Scripts/UI_Scripts/time_bar.gd" id="4_phu03"]
+[ext_resource type="Texture2D" uid="uid://ja4se8xdwe81" path="res://Sprites/HUDandFE/TimeBar/TimeState.png" id="5_optvf"]
+
+[node name="TimeBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 4.0
+offset_right = 132.0
+offset_bottom = 44.0
+value = 95.0
+texture_under = ExtResource("2_3co4m")
+texture_over = ExtResource("3_pwd8p")
+texture_progress = ExtResource("4_nvbfx")
+script = ExtResource("4_phu03")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("5_optvf")

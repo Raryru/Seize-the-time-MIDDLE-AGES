@@ -1,0 +1,130 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyxdhffmqgsjq"]
+
+[ext_resource type="Script" path="res://node_2d.gd" id="1_c6wrq"]
+[ext_resource type="FontFile" uid="uid://bse3om2qj5u0x" path="res://fonts/PressStart2P-Regular.ttf" id="2_sy2q7"]
+[ext_resource type="Texture2D" uid="uid://dfrpvubjx38ap" path="res://Sprites/HUDandFE/Buttons/buttongrayoff.png" id="3_dbtis"]
+[ext_resource type="Texture2D" uid="uid://hg300bq0yskd" path="res://Sprites/HUDandFE/Buttons/buttongrayon.png" id="4_2a02q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_34mhp"]
+font = ExtResource("2_sy2q7")
+font_size = 8
+
+[node name="Titres" type="Node2D"]
+script = ExtResource("1_c6wrq")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -520.0
+offset_top = 728.0
+offset_right = 632.0
+offset_bottom = 877.0
+scale = Vector2(2, 2)
+text = "Titres
+
+
+Programming
+
+Coder: Toleu Ruslan
+
+
+Scenario
+
+Cutscene scenarist: Ernur Baktygali
+Main Scenarist: Ernur Baktygali
+
+
+Game Design
+
+Game Designer: Toleu Ruslan
+Main Designer: Basargali Sayat
+Scenes Designer: Bazargali Sayat
+Characters Designer: Toleu Ruslan
+
+
+RoboTics
+
+Main Roboticist: Baktygali Rauan 
+
+
+Others
+
+Moral Support: Baktygali Ernur/Rauan, Bazargali Sayat, Salauatov Alikhan
+Tester: Baktygali Ernur
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Easter Egg
+
+Budget: 3 DONERs, 1.5 fuse tea
+"
+label_settings = SubResource("LabelSettings_34mhp")
+horizontal_alignment = 1
+
+[node name="Exit_Button" type="TextureButton" parent="."]
+offset_left = 528.0
+offset_top = 680.0
+offset_right = 628.0
+offset_bottom = 698.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_dbtis")
+texture_hover = ExtResource("4_2a02q")
+
+[node name="Exit" type="Label" parent="."]
+offset_left = 592.0
+offset_top = 688.0
+offset_right = 624.0
+offset_bottom = 696.0
+scale = Vector2(2, 2)
+text = "Exit"
+label_settings = SubResource("LabelSettings_34mhp")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Exit_Button" to="." method="_on_exit_button_pressed"]
