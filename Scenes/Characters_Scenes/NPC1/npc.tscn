@@ -236,15 +236,15 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0cidc"]
 _data = {
-"NPCidle_down": SubResource("Animation_3soie"),
-"NPCidle_left": SubResource("Animation_lpsf2"),
-"NPCidle_right": SubResource("Animation_fjiuv"),
-"NPCidle_up": SubResource("Animation_aqhgh"),
-"NPCwalk_down": SubResource("Animation_8ts4a"),
-"NPCwalk_left": SubResource("Animation_r71de"),
-"NPCwalk_right": SubResource("Animation_ua52v"),
-"NPCwalk_up": SubResource("Animation_bcnu6"),
-"RESET": SubResource("Animation_4xukj")
+&"NPCidle_down": SubResource("Animation_3soie"),
+&"NPCidle_left": SubResource("Animation_lpsf2"),
+&"NPCidle_right": SubResource("Animation_fjiuv"),
+&"NPCidle_up": SubResource("Animation_aqhgh"),
+&"NPCwalk_down": SubResource("Animation_8ts4a"),
+&"NPCwalk_left": SubResource("Animation_r71de"),
+&"NPCwalk_right": SubResource("Animation_ua52v"),
+&"NPCwalk_up": SubResource("Animation_bcnu6"),
+&"RESET": SubResource("Animation_4xukj")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4no54"]
@@ -264,7 +264,7 @@ frame = 8
 
 [node name="AnimationNPC" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_0cidc")
+&"": SubResource("AnimationLibrary_0cidc")
 }
 
 [node name="DetectionArea" type="Area2D" parent="."]

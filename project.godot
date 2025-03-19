@@ -17,7 +17,7 @@ config/name_localized={
 }
 config/version="0.1"
 run/main_scene="res://Scenes/UI_Scenes/Menu/main_menu.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://logo.png"
 
 [autoload]

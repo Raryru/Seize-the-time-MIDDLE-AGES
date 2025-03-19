@@ -1,21 +1,21 @@
-[gd_scene load_steps=26 format=3 uid="uid://ka1kh0ihylcv"]
+[gd_scene load_steps=27 format=3 uid="uid://ka1kh0ihylcv"]
 
-[ext_resource type="Script" path="res://Scripts/Main_Scene/main_scene.gd" id="1_m2wqu"]
+[ext_resource type="Script" uid="uid://ej0cqj8asw7b" path="res://Scripts/Main_Scene/main_scene.gd" id="1_m2wqu"]
 [ext_resource type="PackedScene" uid="uid://76sai2mus3jf" path="res://Scenes/Tile_Set/tile_map.tscn" id="1_wmp2t"]
 [ext_resource type="PackedScene" uid="uid://tygi8eu7mg3q" path="res://Scenes/Characters_Scenes/Player_Scene/player.tscn" id="2_n7jcn"]
 [ext_resource type="PackedScene" uid="uid://0up4475u84j7" path="res://Scenes/Camera/Player_Camera.tscn" id="3_ge8un"]
 [ext_resource type="PackedScene" uid="uid://svnscvahn4tc" path="res://Scenes/Characters_Scenes/NPC1/npc.tscn" id="4_gsytd"]
 [ext_resource type="PackedScene" uid="uid://d01to08v1ksn8" path="res://Scenes/UI_Scenes/time_bar.tscn" id="5_6kdjq"]
-[ext_resource type="PackedScene" uid="uid://b2p58d6c0kije" path="res://Scenes/Characters_Scenes/enemy1/enemy.tscn" id="5_76deg"]
 [ext_resource type="Texture2D" uid="uid://dw0snsnntcv6n" path="res://Sprites/Buildings/SaundHouse2in1.png" id="7_78rp6"]
 [ext_resource type="Texture2D" uid="uid://bqss7k8su8wck" path="res://Sprites/HUDandFE/Buttons/Ebuttn.png" id="7_chva8"]
 [ext_resource type="Texture2D" uid="uid://xu8iy02aksc0" path="res://Sprites/HUDandFE/Buttons/ESCButtonoff.png" id="7_f04cl"]
 [ext_resource type="Texture2D" uid="uid://b2piuwnumqjxb" path="res://Sprites/HUDandFE/Buttons/ESCButtonon.png" id="8_3urmo"]
 [ext_resource type="PackedScene" uid="uid://cihbmw2tduxl6" path="res://Scenes/UI_Scenes/quests.tscn" id="9_76avx"]
-[ext_resource type="Script" path="res://Scripts/Main_Scene/door_entrance.gd" id="9_tpfjj"]
+[ext_resource type="Script" uid="uid://b2roqygo7oe2j" path="res://Scripts/Main_Scene/door_entrance.gd" id="9_tpfjj"]
 [ext_resource type="Texture2D" uid="uid://dfrpvubjx38ap" path="res://Sprites/HUDandFE/Buttons/buttongrayoff.png" id="11_drg8u"]
 [ext_resource type="FontFile" uid="uid://bse3om2qj5u0x" path="res://fonts/PressStart2P-Regular.ttf" id="12_ltvo2"]
 [ext_resource type="Texture2D" uid="uid://hg300bq0yskd" path="res://Sprites/HUDandFE/Buttons/buttongrayon.png" id="12_rm56j"]
+[ext_resource type="PackedScene" uid="uid://b2p58d6c0kije" path="res://Scenes/Characters_Scenes/enemy1/enemy.tscn" id="16_fu0e1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hx7pt"]
 font = ExtResource("12_ltvo2")
@@ -47,6 +47,11 @@ b = Vector2(0, 726)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ugm3f"]
 b = Vector2(0, 726)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fu0e1"]
+vertices = PackedVector2Array(23.1406, 457.883, 10.0234, 457.383, 10.9688, 111.789, 137.688, 109.133, 150.93, 137.5, 80.8281, 419.43, 230.352, 338.391, 210.781, 152.938)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 5, 4, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(158, 129, 220, 145, 241, 344, 86, 428, 26, 468, 0, 467, 1, 102, 144, 99)])
+
 [node name="Main_Scene" type="Node2D"]
 script = ExtResource("1_m2wqu")
 
@@ -58,9 +63,6 @@ position = Vector2(211, 168)
 
 [node name="NPC" parent="." instance=ExtResource("4_gsytd")]
 position = Vector2(336, 180)
-
-[node name="Enemy" parent="." instance=ExtResource("5_76deg")]
-position = Vector2(200, 200)
 
 [node name="Player_Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_ge8un")]
 position = Vector2(211, 168)
@@ -183,6 +185,12 @@ shape = SubResource("SegmentShape2D_icgvi")
 [node name="WALLLEFT" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(1, -725)
 shape = SubResource("SegmentShape2D_ugm3f")
+
+[node name="Enemy" parent="." instance=ExtResource("16_fu0e1")]
+position = Vector2(200, 200)
+
+[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_fu0e1")
 
 [connection signal="pressed" from="Player_Camera/ESC" to="." method="_on_esc_pressed"]
 [connection signal="pressed" from="Player_Camera/game_menu/return_menu" to="." method="_on_return_menu_pressed"]

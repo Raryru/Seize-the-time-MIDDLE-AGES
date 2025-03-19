@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cd24qwx2h8gmv" path="res://Sprites/HUDandFE/TimeBar/TimeUnder.png" id="2_3co4m"]
 [ext_resource type="Texture2D" uid="uid://b72s3cc8j656u" path="res://Sprites/HUDandFE/TimeBar/TimeOver.png" id="3_pwd8p"]
 [ext_resource type="Texture2D" uid="uid://bq3046x74bomi" path="res://Sprites/HUDandFE/TimeBar/TimeProgress.png" id="4_nvbfx"]
-[ext_resource type="Script" path="res://Scripts/UI_Scripts/time_bar.gd" id="4_phu03"]
+[ext_resource type="Script" uid="uid://bl02xwkojb64" path="res://Scripts/UI_Scripts/time_bar.gd" id="4_phu03"]
 [ext_resource type="Texture2D" uid="uid://ja4se8xdwe81" path="res://Sprites/HUDandFE/TimeBar/TimeState.png" id="5_optvf"]
 
 [node name="TimeBar" type="Control"]
