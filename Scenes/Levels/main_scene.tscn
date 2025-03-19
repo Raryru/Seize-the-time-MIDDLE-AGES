@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ka1kh0ihylcv"]
+[gd_scene load_steps=31 format=3 uid="uid://ka1kh0ihylcv"]
 
 [ext_resource type="Script" uid="uid://ej0cqj8asw7b" path="res://Scripts/Main_Scene/main_scene.gd" id="1_m2wqu"]
 [ext_resource type="PackedScene" uid="uid://76sai2mus3jf" path="res://Scenes/Tile_Set/tile_map.tscn" id="1_wmp2t"]
@@ -15,7 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://dfrpvubjx38ap" path="res://Sprites/HUDandFE/Buttons/buttongrayoff.png" id="11_drg8u"]
 [ext_resource type="FontFile" uid="uid://bse3om2qj5u0x" path="res://fonts/PressStart2P-Regular.ttf" id="12_ltvo2"]
 [ext_resource type="Texture2D" uid="uid://hg300bq0yskd" path="res://Sprites/HUDandFE/Buttons/buttongrayon.png" id="12_rm56j"]
+[ext_resource type="Texture2D" uid="uid://bwwfvsv5mq6fj" path="res://Sprites/HUDandFE/HPBAR/HPBArunder.png" id="14_46tiw"]
+[ext_resource type="Texture2D" uid="uid://lrvihqdq82a7" path="res://Sprites/HUDandFE/HPBAR/HPBArupper.png" id="15_lifm5"]
 [ext_resource type="PackedScene" uid="uid://b2p58d6c0kije" path="res://Scenes/Characters_Scenes/enemy1/enemy.tscn" id="16_fu0e1"]
+[ext_resource type="Texture2D" uid="uid://cmemqe35bsmm5" path="res://Sprites/HUDandFE/HPBAR/HPBArprogress.png" id="16_llifo"]
+[ext_resource type="Texture2D" uid="uid://dt7wsabkyvh70" path="res://Sprites/HUDandFE/HPBAR/HpState.png" id="17_qlnhn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hx7pt"]
 font = ExtResource("12_ltvo2")
@@ -82,10 +86,9 @@ offset_bottom = 40.0
 
 [node name="EButton" type="TextureRect" parent="Player_Camera/InteractionHint"]
 layout_mode = 0
-offset_left = -46.0
-offset_top = 84.0
-offset_right = -26.0
-offset_bottom = 104.0
+offset_top = 60.0
+offset_right = 20.0
+offset_bottom = 80.0
 texture = ExtResource("7_chva8")
 
 [node name="ESC" type="TextureButton" parent="Player_Camera"]
@@ -144,6 +147,26 @@ offset_bottom = 28.0
 scale = Vector2(0.4, 0.4)
 text = "Менюге оралу"
 label_settings = SubResource("LabelSettings_dxrq0")
+
+[node name="HP" type="Control" parent="Player_Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="Player_Camera/HP"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 85.0
+offset_right = 90.0
+offset_bottom = 125.0
+texture_under = ExtResource("14_46tiw")
+texture_over = ExtResource("15_lifm5")
+texture_progress = ExtResource("16_llifo")
+
+[node name="HeartIcon" type="Sprite2D" parent="Player_Camera/HP"]
+position = Vector2(-35, 95)
+texture = ExtResource("17_qlnhn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(750, 390)

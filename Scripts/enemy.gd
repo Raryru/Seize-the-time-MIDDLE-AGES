@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var patrol_wait_time: float = 2.0  
 @export var chase_range: float = 150.0  
 @export var patrol_range: float = 300.0  
-@export var max_health: int = 200  
+@export var max_health: int = 100  
 
 @onready var navigation_agent = $NavigationAgent2D  
 @onready var anim = $AnimationPlayer  
