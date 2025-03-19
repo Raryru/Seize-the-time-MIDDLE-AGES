@@ -1,15 +1,24 @@
 extends CharacterBody2D
 
 @export var speed: float = 70.0  # Скорость движения
+@export var max_health: int = 100  # Максимальное здоровье
+@export var attack_damage: int = 20  # Урон атаки
 @export var attack_duration: float = 0.5  # Длительность атаки
+@export var attack_cooldown: float = 1.0  # Кулдаун между атаками
 @export var death_duration: float = 1.0  # Длительность анимации смерти
 
+var current_health: int  # Текущее здоровье
 var direction := Vector2.ZERO  # Вектор направления
-var last_direction := "down"   # Последнее направление движения (по умолчанию вниз)
+var last_direction := "down"  # Последнее направление движения
 var is_attacking := false  # Флаг атаки
 var is_dead := false  # Флаг смерти
+var can_attack := true  # Флаг возможности атаки
 
 @onready var anim := $Animationsecondversion  # Ссылка на AnimationPlayer
+@onready var attack_area := $AttackArea  # Ссылка на зону атаки
+
+func _ready():
+	current_health = max_health  # Устанавливаем полное здоровье при старте
 
 func _physics_process(delta):
 	if is_dead:
@@ -18,11 +27,8 @@ func _physics_process(delta):
 	if not is_attacking:
 		move_player()
 
-	if Input.is_action_just_pressed("attack") and not is_attacking:
+	if Input.is_action_just_pressed("attack") and not is_attacking and can_attack:
 		attack()
-
-	if Input.is_action_just_pressed("die") and not is_dead:  # Тестовая кнопка смерти
-		die()
 
 func move_player():
 	var new_direction := Vector2.ZERO  # Временный вектор направления
@@ -69,13 +75,42 @@ func play_idle_animation():
 
 func attack():
 	is_attacking = true
+	can_attack = false  # Запрещаем атаку на время кулдауна
+
 	var attack_anim = "attack_" + last_direction
 	anim.play(attack_anim)
+
+	# Наносим урон врагам в зоне атаки
+	for body in attack_area.get_overlapping_bodies():
+		if body != self and body.has_method("take_damage"):  # Проверяем, что не атакуем себя
+			body.take_damage(attack_damage)
+
 	await get_tree().create_timer(attack_duration).timeout
 	is_attacking = false
 
+	# Запускаем кулдаун атаки
+	await get_tree().create_timer(attack_cooldown).timeout
+	can_attack = true  # Разрешаем атаковать снова
+
+func take_damage(amount: int):
+	if is_dead:
+		return
+	
+	current_health -= amount
+	print("[PLAYER] Получил урон:", amount, "Осталось здоровья:", current_health)
+
+	if current_health <= 0:
+		die()
+
 func die():
+	if is_dead:
+		return
+
 	is_dead = true
+	is_attacking = false
+	velocity = Vector2.ZERO  # Останавливаем игрока
 	anim.play("death")
+
+	print("[PLAYER] Игрок погиб.")
 	await get_tree().create_timer(death_duration).timeout
 	queue_free()  # Удаление персонажа после смерти

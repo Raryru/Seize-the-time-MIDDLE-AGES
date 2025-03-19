@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://6tsqvp7hhlb5"]
 
 [ext_resource type="Texture2D" uid="uid://bqss7k8su8wck" path="res://Sprites/HUDandFE/Buttons/Ebuttn.png" id="2_3fo40"]
-[ext_resource type="Script" path="res://Scripts/Main_Scene/door_exit.gd" id="2_dfpkp"]
+[ext_resource type="Script" uid="uid://br40si700a5ee" path="res://Scripts/Main_Scene/door_exit.gd" id="2_dfpkp"]
 [ext_resource type="PackedScene" uid="uid://tygi8eu7mg3q" path="res://Scenes/Characters_Scenes/Player_Scene/player.tscn" id="3_ph1qn"]
 [ext_resource type="PackedScene" uid="uid://0up4475u84j7" path="res://Scenes/Camera/Player_Camera.tscn" id="4_wejl1"]
 [ext_resource type="PackedScene" uid="uid://d01to08v1ksn8" path="res://Scenes/UI_Scenes/time_bar.tscn" id="5_jc0bn"]

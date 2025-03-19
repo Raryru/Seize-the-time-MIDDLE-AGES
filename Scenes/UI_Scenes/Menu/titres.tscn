@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyxdhffmqgsjq"]
 
-[ext_resource type="Script" path="res://node_2d.gd" id="1_c6wrq"]
+[ext_resource type="Script" uid="uid://v4kb8unrji4y" path="res://node_2d.gd" id="1_c6wrq"]
 [ext_resource type="FontFile" uid="uid://bse3om2qj5u0x" path="res://fonts/PressStart2P-Regular.ttf" id="2_sy2q7"]
 [ext_resource type="Texture2D" uid="uid://dfrpvubjx38ap" path="res://Sprites/HUDandFE/Buttons/buttongrayoff.png" id="3_dbtis"]
 [ext_resource type="Texture2D" uid="uid://hg300bq0yskd" path="res://Sprites/HUDandFE/Buttons/buttongrayon.png" id="4_2a02q"]
