@@ -1,36 +1,40 @@
 extends CharacterBody2D
 
 @export var speed: float = 50.0  
-@export var attack_damage: int = 10  # Урон атаки
-@export var attack_interval: float = 1.5  # Интервал между атаками
-@export var patrol_wait_time: float = 2.0  # Остановка при патрулировании (в секундах)
-@export var chase_range: float = 150.0  # Радиус преследования
-@export var patrol_range: float = 300.0  # Радиус патрулирования
-@export var max_health: int = 20  # Здоровье врага
+@export var attack_damage: int = 10  
+@export var attack_interval: float = 1.5  
+@export var patrol_wait_time: float = 2.0  
+@export var chase_range: float = 150.0  
+@export var patrol_range: float = 300.0  
+@export var max_health: int = 200  
 
 @onready var navigation_agent = $NavigationAgent2D  
 @onready var anim = $AnimationPlayer  
 @onready var detection_area = $DetectionArea  
 @onready var attack_area = $AttackArea  
+@onready var health_bar = $HealthBar/HealthBar  # Добавляем ссылку на шкалу здоровья
 
 var player: CharacterBody2D = null
 var is_attacking: bool = false
-var can_attack: bool = true  # Флаг, который разрешает атаку
-var is_patrolling: bool = true  # Флаг режима патруля
-var is_waiting: bool = false  # Флаг ожидания перед следующим патрулированием
+var can_attack: bool = true  
+var is_patrolling: bool = true  
+var is_waiting: bool = false  
 var last_direction: Vector2 = Vector2.DOWN
 var patrol_target: Vector2
-var current_health: int  # Текущее здоровье
-var is_dead: bool = false  # Флаг смерти
+var current_health: int  
+var is_dead: bool = false  
 
 func _ready():
 	current_health = max_health
 	patrol_target = global_position
 	choose_new_destination()
-	print("[ENEMY] Готов. Начинаю патрулирование.")
+
+	health_bar.value = current_health  # Устанавливаем текущее здоровье
+	health_bar.max_value = max_health  # Устанавливаем максимум
+	health_bar.hide()  # Скрываем шкалу в начале
 
 func _process(delta):
-	if is_dead or is_attacking:  # Если враг мертв или атакует — он не двигается
+	if is_dead or is_attacking:
 		return
 
 	if player:
@@ -42,7 +46,7 @@ func choose_new_destination():
 	if is_waiting or is_dead:
 		return
 
-	is_waiting = true  # Включаем режим ожидания перед следующим движением
+	is_waiting = true  
 	velocity = Vector2.ZERO
 	anim.play("idle_" + get_idle_direction())
 
@@ -52,8 +56,7 @@ func choose_new_destination():
 	patrol_target = global_position + random_offset
 	navigation_agent.target_position = patrol_target
 
-	print("[ENEMY] Новая точка патруля:", patrol_target)
-	is_waiting = false  # Выключаем режим ожидания
+	is_waiting = false  
 
 func patrol():
 	if is_dead:
@@ -70,7 +73,6 @@ func chase_player():
 		return
 
 	if player and global_position.distance_to(player.global_position) > patrol_range:
-		print("[ENEMY] Игрок ушел слишком далеко, возвращаюсь к патрулю.")
 		player = null
 		is_patrolling = true
 		choose_new_destination()
@@ -89,7 +91,7 @@ func move_to(target_pos: Vector2):
 
 	var direction = (target_pos - global_position).normalized()
 
-	if direction == Vector2.ZERO:  # Если враг уперся в объект (например, игрока), он перестает двигаться
+	if direction == Vector2.ZERO:
 		velocity = Vector2.ZERO
 		anim.play("idle_" + get_idle_direction())
 		return
@@ -116,14 +118,12 @@ func attack():
 	
 	is_attacking = true
 	can_attack = false
-	velocity = Vector2.ZERO  # Останавливаем врага во время атаки
+	velocity = Vector2.ZERO  
 
 	var attack_anim = "attack_right" if last_direction == Vector2.RIGHT else "attack_left"
 	anim.play(attack_anim)
 
-	print("[ENEMY] Атакую игрока!")
-
-	await get_tree().create_timer(0.3).timeout  # Ждем часть анимации перед нанесением урона
+	await get_tree().create_timer(0.3).timeout  
 
 	if player and attack_area.overlaps_body(player) and player.has_method("take_damage"):
 		player.take_damage(attack_damage)
@@ -137,7 +137,7 @@ func take_damage(amount: int):
 		return
 
 	current_health -= amount
-	print("[ENEMY] Получил урон:", amount, "Осталось здоровья:", current_health)
+	health_bar.value = current_health  # Обновляем шкалу здоровья
 
 	if current_health <= 0:
 		die()
@@ -146,13 +146,12 @@ func die():
 	if is_dead:
 		return
 
-	print("[ENEMY] Враг погиб.")
-	is_dead = true  # Устанавливаем флаг смерти
-	velocity = Vector2.ZERO  # Останавливаем движение
-	set_process(false)  # Отключаем обработку _process
-	anim.play("death")  # Проигрываем анимацию смерти
+	is_dead = true  
+	velocity = Vector2.ZERO  
+	set_process(false)  
+	anim.play("death")  
 
-	await anim.animation_finished  # Ждём завершения анимации перед удалением
+	await anim.animation_finished  
 	queue_free()
 
 func get_idle_direction():
@@ -173,21 +172,14 @@ func _on_detection_area_body_entered(body):
 	if body.name == "Player":
 		player = body
 		is_patrolling = false
-		print("[ENEMY] Обнаружен игрок! Начинаю преследование.")
+		health_bar.show()  # Показываем шкалу здоровья
 
 func _on_detection_area_body_exited(body):
 	if is_dead:
 		return
 
 	if body == player:
-		print("[ENEMY] Игрок вышел из зоны обнаружения.")
 		player = null
 		is_patrolling = true
 		choose_new_destination()
-
-func _on_attack_area_body_entered(body):
-	if is_dead:
-		return
-
-	if body.name == "Player":
-		attack()
+		health_bar.hide()  # Скрываем шкалу здоровья
